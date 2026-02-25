@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ info.title }} | Anime Project</title>
+    <style>
+        body { background: #0b0b0b; color: white; font-family: sans-serif; margin: 20px; }
+        .player { width: 100%; aspect-ratio: 16/9; background: #000; border: 1px solid #333; display: flex; align-items: center; justify-content: center; font-size: 40px; color: #ffb100; margin-bottom: 20px; }
+        .ep-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 10px; margin-top: 20px; }
+        .ep-box { background: #333; padding: 10px; text-align: center; border-radius: 4px; cursor: pointer; }
+        .ep-box:hover { background: #ffb100; color: black; }
+        .season-btn { display: block; background: #222; padding: 10px; margin-bottom: 5px; color: #ccc; text-decoration: none; border: 1px solid #333; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="player">▶</div>
+    <h3>Seasons</h3>
+    {% for rel in relations %}{% if rel.relation in ['Prequel', 'Sequel'] %}
+        {% for entry in rel.entry %}<a href="/anime/{{ entry.mal_id }}" class="season-btn">{{ entry.name }} ({{ rel.relation }})</a>{% endfor %}
+    {% endif %}{% endfor %}
+    <h3>Episodes</h3>
+    <div class="ep-grid">{% for ep in episodes %}<div class="ep-box">{{ loop.index }}</div>{% endfor %}</div>
+</body>
+</html>
